@@ -14,92 +14,124 @@ import java.util.Map;
 import java.util.Set;
 
 public class LibraryFile {
-	
+
 	public static void bookList() {
 		Path writeFile = Paths.get("LibraryList");
 		File file = writeFile.toFile();
-		
+
 		try {
 			FileReader fr = new FileReader(file);
-			
-			BufferedReader reader = new BufferedReader (fr);
-			
+
+			BufferedReader reader = new BufferedReader(fr);
+
 			String line = reader.readLine();
-			
+
 			while (line != null) {
 				System.out.println(line);
 				line = reader.readLine();
 			}
-			
+
 			reader.close();
-			
+
 		} catch (IOException e) {
 			System.out.println("Something went wrong.");
 			e.printStackTrace();
-		}	
+		}
 	}
-	
-	public  void searchByAuthor(String byAuthor) {
+
+	public void searchByAuthor(String byAuthor) {
 		Path writeFile = Paths.get("LibraryList");
 		File file = writeFile.toFile();
-		
+
 		try {
 			FileReader fr = new FileReader(file);
-			
-			BufferedReader reader = new BufferedReader (fr);
-			
+
+			BufferedReader reader = new BufferedReader(fr);
+
 			String line = reader.readLine();
-			String [] lineInput = new String [2];
-					
+			String[] lineInput = new String[2];
+
 			while (line != null) {
-			
-				HashMap<String,String> hm = new HashMap<String,String>();
-								
+
+				HashMap<String, String> hm = new HashMap<String, String>();
+
 				lineInput = line.split(",");
 				if (byAuthor.equalsIgnoreCase(lineInput[1])) {
-				
+
 					hm.put(lineInput[1], lineInput[0]);
 					Set set = hm.entrySet();
-					
+
 					Iterator i = set.iterator();
 					while (i.hasNext()) {
-						Map.Entry me = (Map.Entry)i.next();
+						Map.Entry me = (Map.Entry) i.next();
 						System.out.println(me.getKey() + ": " + me.getValue());
 					}
-					
 				}
-				
 				line = reader.readLine();
-				
 			}
-			
 			reader.close();
-			
 		} catch (IOException e) {
 			System.out.println("Something went wrong.");
 			e.printStackTrace();
-		}	
+		}
 	}
-	
-	
-	public  void searchByTitle() {
-		//return book name/title
+
+	public void searchLibrary(String userInput) {
+		Path writeFile = Paths.get("LibraryList");
+		File file = writeFile.toFile();
+
+		try {
+			FileReader fr = new FileReader(file);
+
+			BufferedReader reader = new BufferedReader(fr);
+
+			String line = reader.readLine();
+			String[] lineInput = new String[2];
+
+			while (line != null) {
+
+				HashMap<String, String> hm = new HashMap<String, String>();
+
+				if (line.indexOf(userInput) != -1) {
+
+					lineInput = line.split(",");
+
+					hm.put(lineInput[0], lineInput[1]);
+					Set set = hm.entrySet();
+					Iterator i = set.iterator();
+					while (i.hasNext()) {
+						Map.Entry me = (Map.Entry) i.next();
+						System.out.println(me.getKey() + ": " + me.getValue());
+					}
+				}
+				line = reader.readLine();
+			}
+
+			reader.close();
+		} catch (IOException e) {
+			System.out.println("Something went wrong.");
+			e.printStackTrace();
+		}
+
+		// return book name/title
+
 	}
-	
-	public  void checkOutBook() {
-		// check out book, show status and if it is on shelf, 
-		//set due date to 2 weeks from current date
+
+	public void checkOutBook() {
+		// check out book, show status and if it is on shelf,
+		// set due date to 2 weeks from current date
+		
 	}
-	
-	public  void addBook(String bookTitle, String bookAuthor) {
+
+	public void addBook(String bookTitle, String bookAuthor) {
 		Books b1 = new Books();
 		b1.setTitle(bookTitle);
 		b1.setAuthor(bookAuthor);
 		Path writeFile = Paths.get("LibraryList");
-		File file = writeFile.toFile(); 
-		
+		File file = writeFile.toFile();
+
 		try {
-			PrintWriter out = new PrintWriter(new FileOutputStream(file,true));
+			PrintWriter out = new PrintWriter(new FileOutputStream(file, true));
 			System.out.println("Adding to document");
 			out.println(b1);
 			out.close();
@@ -109,4 +141,3 @@ public class LibraryFile {
 		}
 	}
 }
-

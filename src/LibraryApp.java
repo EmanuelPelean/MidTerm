@@ -10,7 +10,8 @@ public class LibraryApp {
 		//LibraryFile readFile = new LibraryFile();
 		//lib1.bookList();
 		// formatting is needed.
-		lib1.searchByAuthor("DeAnte");
+		//lib1.searchByAuthor("DeAnte");
+		lib1.searchLibrary("DeAnte");
 	}
 	
 	
