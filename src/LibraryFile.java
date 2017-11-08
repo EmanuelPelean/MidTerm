@@ -1,19 +1,86 @@
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 public class LibraryFile {
 	
 	public static void bookList() {
-		//to show entire list of books formated nicely
+		Path writeFile = Paths.get("LibraryList");
+		File file = writeFile.toFile();
+		
+		try {
+			FileReader fr = new FileReader(file);
+			
+			BufferedReader reader = new BufferedReader (fr);
+			
+			String line = reader.readLine();
+			
+			while (line != null) {
+				System.out.println(line);
+				line = reader.readLine();
+			}
+			
+			reader.close();
+			
+		} catch (IOException e) {
+			System.out.println("Something went wrong.");
+			e.printStackTrace();
+		}	
 	}
 	
-	public  void searchByAuthor() {
-		//return book name/title
+	public  void searchByAuthor(String byAuthor) {
+		Path writeFile = Paths.get("LibraryList");
+		File file = writeFile.toFile();
+		
+		try {
+			FileReader fr = new FileReader(file);
+			
+			BufferedReader reader = new BufferedReader (fr);
+			
+			String line = reader.readLine();
+			String [] lineInput = new String [2];
+					
+			while (line != null) {
+			
+				HashMap<String,String> hm = new HashMap<String,String>();
+								
+				lineInput = line.split(",");
+				if (byAuthor.equalsIgnoreCase(lineInput[1])) {
+				
+					hm.put(lineInput[1], lineInput[0]);
+					Set set = hm.entrySet();
+					
+					Iterator i = set.iterator();
+					while (i.hasNext()) {
+						Map.Entry me = (Map.Entry)i.next();
+						System.out.println(me.getKey() + ": " + me.getValue());
+					}
+					
+				}
+				
+				line = reader.readLine();
+				
+			}
+			
+			reader.close();
+			
+		} catch (IOException e) {
+			System.out.println("Something went wrong.");
+			e.printStackTrace();
+		}	
 	}
+	
 	
 	public  void searchByTitle() {
 		//return book name/title
