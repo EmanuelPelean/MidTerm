@@ -1,10 +1,23 @@
 
 public class Books {
+	private int bookID;
 	private String title;
 	private String author;
-	public enum status {onShelf, checkOut, overDue}
+	private String bookStatus;
 	private int dueDate;
+	
+	public Books() {
 		
+	}
+	public Books(int bookID, String author, String title, String bookStatus, int dueDate) {
+		// TODO Auto-generated constructor stub
+		this.bookID = bookID;
+		this.author = author;
+		this.title = title;
+		this.bookStatus = bookStatus;
+		this.dueDate = dueDate;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -29,9 +42,27 @@ public class Books {
 		this.dueDate = dueDate;
 	}
 	
+	public int getBookID() {
+		return bookID;
+	}
+
+	public void setBookID(int bookID) {
+		this.bookID = bookID;
+	}
+
+	public String getBookStatus() {
+		return bookStatus;
+	}
+
+	public void setBookStatus(String bookStatus) {
+		this.bookStatus = bookStatus;
+	}
+	
 	@Override
 	public String toString() {
-		return title + "," + author;
+		return String.format("%-1s %-10s %-10s %-10s %-10s\n", bookID, author, title, bookStatus, dueDate);
+		
+		
 	}
 
 }

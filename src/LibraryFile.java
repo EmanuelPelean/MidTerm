@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -15,30 +16,47 @@ import java.util.Set;
 
 public class LibraryFile {
 
-	public static void bookList() {
+	public void bookList(ArrayList<Books> arr) {
+		System.out.printf("%-1s %-10s %-10s %-10s %-10s\n", "Book #", "Author", "Title", "Status", "Due Date\n");
+
+		for (Books book : arr) {
+			
+			System.out.println(book);
+		}
+		
+	}
+	
+	public ArrayList translateDoc() {
 		Path writeFile = Paths.get("LibraryList");
 		File file = writeFile.toFile();
+		ArrayList<Books> mainDirectory = new ArrayList<Books>();
 
 		try {
 			FileReader fr = new FileReader(file);
-
 			BufferedReader reader = new BufferedReader(fr);
 
 			String line = reader.readLine();
+			String[] lineInput = new String[5];
+		
 
 			while (line != null) {
-				System.out.println(line);
+
+				lineInput = line.split(",");
+				mainDirectory.add(new Books (Integer.valueOf(lineInput[0].toString()),lineInput[1],lineInput[2],lineInput[3],Integer.valueOf(lineInput[4].toString())));
+				
 				line = reader.readLine();
 			}
-
 			reader.close();
-
 		} catch (IOException e) {
 			System.out.println("Something went wrong.");
 			e.printStackTrace();
 		}
+		
+		return mainDirectory;	
+		
 	}
-
+	
+	
 	public void searchByAuthor(String byAuthor) {
 		Path writeFile = Paths.get("LibraryList");
 		File file = writeFile.toFile();
