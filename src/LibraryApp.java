@@ -26,17 +26,25 @@ public class LibraryApp {
 				lib1.bookList(booksArray);
 				break;
 			case 2:
-				int bookNumber = lib1.searchByAuthor(booksArray, "Emanuel");
-				String yn = Validator.getStringYN(scan, "Do you want to checkout this book");
-				if (yn.equalsIgnoreCase("y")) {
-					lib1.checkOutBook(booksArray, bookNumber);
+				Books bookReturnedByAuthor = lib1.searchByAuthor(booksArray, "Emanuel");
+				if (bookReturnedByAuthor != null) {
+					String yn = Validator.getStringYN(scan, "Do you want to checkout this book");
+					if (yn.equalsIgnoreCase("y")) {
+						booksArray = lib1.checkOutBook(booksArray, bookReturnedByAuthor);
+						System.out.println(bookReturnedByAuthor.getBookStatus());
+					}
 				}
-
 				break;
 			case 3:
-				lib1.searchLibrary("DeAnte");
-				break;
-			case 4: 
+				Books bookReturnedByTitle = lib1.searchByTitle(booksArray, "driver");
+				if (bookReturnedByTitle != null) {
+					String yn = Validator.getStringYN(scan, "Do you want to checkout this book");
+					if (yn.equalsIgnoreCase("y")) {
+						booksArray = lib1.checkOutBook(booksArray, bookReturnedByTitle);
+						System.out.println(bookReturnedByTitle.getBookStatus());
+					}
+				}
+			case 4:
 
 				break;
 			case 5:
