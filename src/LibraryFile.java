@@ -203,7 +203,29 @@ public class LibraryFile {
 		}
 		return arr;
 	}
+	
+	public ArrayList<Books> setToCheckedIn(ArrayList<Books> arr, Scanner scnr) {
+		
+		int userIDValue= Validator.getInt(scnr, "Please enter the Book ID of the book you wish to return!: ", 1, Integer.MAX_VALUE);
+		
+		for (Books book: arr) {
+			int bookID = book.getBookID();
+			
+			if(bookID == userIDValue) {
+				book.setBookStatus("Checked in");
+			} 
+			
+			
+			
+		}
+		
+		
+		
+		return arr;
+		
+	}
 
+	// finish this
 	public void copyToFile(String bookTitle, String bookAuthor) {
 		Books b1 = new Books();
 		b1.setTitle(bookTitle);

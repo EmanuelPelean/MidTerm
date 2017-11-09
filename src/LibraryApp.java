@@ -19,7 +19,7 @@ public class LibraryApp {
 							+ "\n1. Display the entire list of books.  " + "\n2. Search for a book by author."
 							+ "\n3. Search for a book by title." + "\n4. Retun a book."
 							+ "\n5. Add a book to database: \n",
-					1, 5);
+					1, 6);
 
 			switch (userSelection) {
 			case 1:
@@ -46,15 +46,19 @@ public class LibraryApp {
 				}
 			case 4:
 				lib1.bookList(booksArray);
-				booksArray = lib1.checkInBook(booksArray, scan);
+				//booksArray = lib1.checkInBook(booksArray, scan);
+				booksArray = lib1.setToCheckedIn(booksArray, scan);
 				break;
 			case 5:
 				booksArray = lib1.addBook(booksArray, scan);
 				break;
 
-			default:
+			case 6: 
 				proceed = false;
 				System.out.println("We hope you enjoyed your book!");
+				
+			default:
+				
 			}
 
 		}
