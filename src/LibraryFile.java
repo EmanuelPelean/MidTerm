@@ -63,8 +63,8 @@ public class LibraryFile {
 
 	}
 
-	public Books searchByAuthor(ArrayList<Books> arr, String author) {
-		Scanner scnr = new Scanner(System.in);
+	public Books searchByAuthor(ArrayList<Books> arr, String author, Scanner scnr) {
+
 		// variable used to specify which book the user selects if there are multiple
 		// results
 		int userChoice = 0;
@@ -104,8 +104,8 @@ public class LibraryFile {
 
 	}
 
-	public Books searchByTitle(ArrayList<Books> arr, String title) {
-		Scanner scnr = new Scanner(System.in);
+	public Books searchByTitle(ArrayList<Books> arr, String title, Scanner scnr) {
+
 		// variable used to specify which book the user selects if there are multiple
 		// results
 		int userChoice = 0;
@@ -157,7 +157,54 @@ public class LibraryFile {
 
 	}
 
-	public void addBook(String bookTitle, String bookAuthor) {
+	public ArrayList<Books> addBook(ArrayList<Books> arr, Scanner scnr) {
+
+		String titleBook = Validator.getStringLine(scnr, "Enter the book title: ");
+		String authorBook = Validator.getStringLine(scnr, "Enter book aurthor");
+		String bookStatus = "Checked in";
+		int dueDate = 0;
+		int bookID = 0;
+
+		for (Books book : arr) {
+
+			if (book.getBookID() > bookID) {
+				bookID = book.getBookID();
+			}
+
+		}
+		bookID += 1;
+
+		arr.add(new Books(bookID, authorBook, titleBook, bookStatus, dueDate));
+
+		return arr;
+
+	}
+
+	public ArrayList<Books> checkInBook(ArrayList<Books> arr, Scanner scnr) {
+		boolean proceed = true;
+		while (proceed) {
+
+			int bookID = Validator.getInt(scnr, "Please enter the book ID you whant to turn in: ");
+			for (Books book : arr) {
+			int compare = book.getBookID();
+			System.out.println(compare);
+				if (compare == bookID) {
+					book.setBookStatus("Checked in");
+					proceed = false;
+					System.out.println(bookID);
+				} else if(book.getBookID()!=bookID) {
+					System.out.println("Book ID was not found");
+					String userChoice = Validator.getStringYN(scnr, "Repeat the search? (y/n) :");
+					if (userChoice.equalsIgnoreCase("n")) {
+						proceed = false;
+					}
+				}
+			}
+		}
+		return arr;
+	}
+
+	public void copyToFile(String bookTitle, String bookAuthor) {
 		Books b1 = new Books();
 		b1.setTitle(bookTitle);
 		b1.setAuthor(bookAuthor);

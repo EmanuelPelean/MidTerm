@@ -17,8 +17,8 @@ public class LibraryApp {
 			int userSelection = Validator.getInt(scan,
 					"Please select from the following options: (Please enter an option number)"
 							+ "\n1. Display the entire list of books.  " + "\n2. Search for a book by author."
-							+ "\n3. Search for a book by title." + "\n4. Select a book from the list to check out."
-							+ "\n5. Return a book.",
+							+ "\n3. Search for a book by title." + "\n4. Retun a book."
+							+ "\n5. Add a book to database: \n",
 					1, 5);
 
 			switch (userSelection) {
@@ -26,7 +26,7 @@ public class LibraryApp {
 				lib1.bookList(booksArray);
 				break;
 			case 2:
-				Books bookReturnedByAuthor = lib1.searchByAuthor(booksArray, "Emanuel");
+				Books bookReturnedByAuthor = lib1.searchByAuthor(booksArray, "Emanuel", scan);
 				if (bookReturnedByAuthor != null) {
 					String yn = Validator.getStringYN(scan, "Do you want to checkout this book");
 					if (yn.equalsIgnoreCase("y")) {
@@ -36,7 +36,7 @@ public class LibraryApp {
 				}
 				break;
 			case 3:
-				Books bookReturnedByTitle = lib1.searchByTitle(booksArray, "driver");
+				Books bookReturnedByTitle = lib1.searchByTitle(booksArray, "driver", scan);
 				if (bookReturnedByTitle != null) {
 					String yn = Validator.getStringYN(scan, "Do you want to checkout this book");
 					if (yn.equalsIgnoreCase("y")) {
@@ -45,10 +45,11 @@ public class LibraryApp {
 					}
 				}
 			case 4:
-
+				lib1.bookList(booksArray);
+				booksArray = lib1.checkInBook(booksArray, scan);
 				break;
 			case 5:
-				lib1.addBook("randomBook", "randomAuthor");
+				booksArray = lib1.addBook(booksArray, scan);
 				break;
 
 			default:
