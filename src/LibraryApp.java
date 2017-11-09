@@ -8,9 +8,8 @@ public class LibraryApp {
 		LibraryFile lib1 = new LibraryFile();
 		boolean proceed = true;
 
-		
 		ArrayList<Books> booksArray = lib1.translateDoc();
-		
+
 		System.out.println("Welcome to the Grand Circus Library Terminal\n");
 
 		while (proceed) {
@@ -27,13 +26,18 @@ public class LibraryApp {
 				lib1.bookList(booksArray);
 				break;
 			case 2:
-				lib1.searchLibrary(Validator.getString(scan, "Please enter the author's name: "));
+				int bookNumber = lib1.searchByAuthor(booksArray, "Emanuel");
+				String yn = Validator.getStringYN(scan, "Do you want to checkout this book");
+				if (yn.equalsIgnoreCase("y")) {
+					lib1.checkOutBook(booksArray, bookNumber);
+				}
+
 				break;
 			case 3:
 				lib1.searchLibrary("DeAnte");
 				break;
-			case 4:
-				lib1.checkOutBook("TreeSurgeon, Tom");
+			case 4: 
+
 				break;
 			case 5:
 				lib1.addBook("randomBook", "randomAuthor");

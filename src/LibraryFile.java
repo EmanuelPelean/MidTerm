@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 public class LibraryFile {
@@ -57,41 +58,24 @@ public class LibraryFile {
 	}
 	
 	
-	public void searchByAuthor(String byAuthor) {
-		Path writeFile = Paths.get("LibraryList");
-		File file = writeFile.toFile();
-
-		try {
-			FileReader fr = new FileReader(file);
-
-			BufferedReader reader = new BufferedReader(fr);
-
-			String line = reader.readLine();
-			String[] lineInput = new String[2];
-
-			while (line != null) {
-
-				HashMap<String, String> hm = new HashMap<String, String>();
-
-				lineInput = line.split(",");
-				if (byAuthor.equalsIgnoreCase(lineInput[1])) {
-
-					hm.put(lineInput[1], lineInput[0]);
-					Set set = hm.entrySet();
-
-					Iterator i = set.iterator();
-					while (i.hasNext()) {
-						Map.Entry me = (Map.Entry) i.next();
-						System.out.println(me.getKey() + ": " + me.getValue());
-					}
-				}
-				line = reader.readLine();
+	public int searchByAuthor(ArrayList<Books> arr, String author) {
+		Scanner scnr = new Scanner(System.in);
+		ArrayList<Books> booksFoundArr = new ArrayList<Books>();
+		for (Books book : arr) {
+			if (book.getAuthor().equals(author)) {
+				booksFoundArr.add(book);
 			}
-			reader.close();
-		} catch (IOException e) {
-			System.out.println("Something went wrong.");
-			e.printStackTrace();
+			
 		}
+		if (booksFoundArr.size() > 1) {
+			System.out.println("Multiple matches found. Please select a book.");
+			for (Books books : booksFoundArr) {
+				System.out.println(books);
+			}
+			
+			
+		}
+		return Validator.getInt(scnr, "Please enter the ID of the book you would like");
 	}
 
 	public void searchLibrary(String userInput) {
@@ -135,46 +119,16 @@ public class LibraryFile {
 
 	}
 
-	public void checkOutBook(String lineToRemove) {
+	public ArrayList<Books> checkOutBook(ArrayList<Books> arr, int bookID) {
 		// check out book, show status and if it is on shelf,
 		// set due date to 2 weeks from current date
-		Path writeFile = Paths.get("LibraryList");
-		File file = writeFile.toFile();
-		File inFile = new File("LibraryList");
-		if (!inFile.isFile()) {
-			System.out.println("Cannot find data base");
-			return;
+		for (Books book : arr) {
+			if (book.getBookID() == bookID) {
+				System.out.println(book);
+				arr.remove(book);
+			}
 		}
-
-		try {
-			File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
-			BufferedReader br = new BufferedReader(new FileReader(file));
-			PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
-			String line;
-			// read from original file and write to the new, unless
-			// content matches data to move
-			while ((line = br.readLine()) != null) {
-				if (!line.trim().equals(lineToRemove)) {
-					pw.println(line);
-					pw.flush();
-
-				}
-			}
-			pw.close();
-			br.close();
-			// delete original file
-			if (!inFile.delete()) {
-				System.out.println("Could not delete file.");
-				return;
-			}
-			// rename new file to original file name
-			if (!tempFile.renameTo(inFile)) {
-				System.out.println("Could not rename the file.");
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		return arr;
 
 	}
 
