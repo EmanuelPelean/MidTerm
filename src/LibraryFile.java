@@ -3,11 +3,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -117,10 +117,47 @@ public class LibraryFile {
 
 	}
 
-	public void checkOutBook() {
+	public void checkOutBook(String lineToRemove) {
 		// check out book, show status and if it is on shelf,
 		// set due date to 2 weeks from current date
-		
+		Path writeFile = Paths.get("LibraryList");
+		File file = writeFile.toFile();
+		File inFile = new File("LibraryList");
+		if (!inFile.isFile()) {
+			System.out.println("Cannot find data base");
+			return;
+		}
+
+		try {
+			File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
+			String line;
+			// read from original file and write to the new, unless
+			// content matches data to move
+			while ((line = br.readLine()) != null) {
+				if (!line.trim().equals(lineToRemove)) {
+					pw.println(line);
+					pw.flush();
+
+				}
+			}
+			pw.close();
+			br.close();
+			// delete original file
+			if (!inFile.delete()) {
+				System.out.println("Could not delete file.");
+				return;
+			}
+			// rename new file to original file name
+			if (!tempFile.renameTo(inFile)) {
+				System.out.println("Could not rename the file.");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public void addBook(String bookTitle, String bookAuthor) {

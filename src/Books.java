@@ -4,8 +4,7 @@ public class Books {
 	private String author;
 	public enum status {onShelf, checkOut, overDue}
 	private int dueDate;
-	
-	
+		
 	public String getTitle() {
 		return title;
 	}

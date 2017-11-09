@@ -8,10 +8,13 @@ public class LibraryApp {
 		//lib1.addBook("randomBook", "randomAuthor");
 		
 		//LibraryFile readFile = new LibraryFile();
-		//lib1.bookList();
+		
 		// formatting is needed.
 		//lib1.searchByAuthor("DeAnte");
-		lib1.searchLibrary("DeAnte");
+		//lib1.searchLibrary("DeAnte");
+		lib1.bookList();
+		lib1.checkOutBook("TreeSurgeon, Tom");
+		lib1.bookList();
 	}
 	
 	
