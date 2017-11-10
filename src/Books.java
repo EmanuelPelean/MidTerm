@@ -16,7 +16,7 @@ public class Books {
 		this.bookID = bookID;
 		this.author = author;
 		this.title = title;
-		this.bookStatus = "Checked In";
+		this.bookStatus = "On Shelf";
 		Date currentDate = Calendar.getInstance().getTime();
 		this.dueDate = currentDate;
 	}

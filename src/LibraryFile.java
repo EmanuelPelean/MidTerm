@@ -17,7 +17,8 @@ public class LibraryFile {
 
 	// Get the main array of Books and print out each line
 	public void bookList(ArrayList<Books> arr) {
-		System.out.printf("\n\n\n%-8s %-25s %-40s %-20s %-15s\n", "Book #", "Author", "Title", "Status", "Due Date\n\n");
+		System.out.printf("\n\n\n%-8s %-25s %-40s %-20s %-15s\n", "Book #", "Author", "Title", "Status",
+				"Due Date\n\n");
 
 		for (Books book : arr) {
 
@@ -51,9 +52,8 @@ public class LibraryFile {
 
 				// Create new Book object and give it the parameters from the temp array, then
 				// add this object to the Books array
-				mainDirectory.add(new Books(Integer.valueOf(lineInput[0].toString()), lineInput[1], lineInput[2],
-						lineInput[3]));
-				
+				mainDirectory.add(
+						new Books(Integer.valueOf(lineInput[0].toString()), lineInput[1], lineInput[2], lineInput[3]));
 
 				line = reader.readLine();
 			}
@@ -95,8 +95,14 @@ public class LibraryFile {
 			userChoice = Validator.getInt(scnr, "Please enter the book ID you would like: ");
 			for (Books books : booksFoundArr) {
 				if (books.getBookID() == userChoice) {
-					bookSelected = books;
+					if (!books.getBookStatus().equalsIgnoreCase("checked out")) {
+						bookSelected = books;
+					} else {
+						bookSelected = null;
+						System.out.println("This book is already checked out! Please feel free to check out another book that is currently 'On Shelf'.");
+					}
 				}
+
 			}
 
 		} else if (booksFoundArr.size() == 0) {
@@ -136,7 +142,12 @@ public class LibraryFile {
 			userChoice = Validator.getInt(scnr, "Please enter the book ID you would like: ");
 			for (Books books : booksFoundArr) {
 				if (books.getBookID() == userChoice) {
-					bookSelected = books;
+					if (!books.getBookStatus().equalsIgnoreCase("checked out")) {
+						bookSelected = books;
+					} else {
+						bookSelected = null;
+						System.out.println("This book is already checked out! Please feel free to check out another book that is currently 'On Shelf'.");
+					}
 				}
 			}
 
@@ -153,13 +164,13 @@ public class LibraryFile {
 		// check out book, show status and if it is on shelf,
 		// set due date to 2 weeks from current date
 
-		book.setBookStatus("checked out");
+		book.setBookStatus("Checked Out");
 		int noOfDays = 14;
-	
+
 		Calendar c = Calendar.getInstance();
 		Date currentDate = Calendar.getInstance().getTime();
 		c.setTime(currentDate);
-		
+
 		c.add(Calendar.DAY_OF_YEAR, noOfDays);
 		Date date = c.getTime();
 		book.setDueDate(date);
@@ -173,9 +184,8 @@ public class LibraryFile {
 	public ArrayList<Books> addBook(ArrayList<Books> arr, Scanner scnr) {
 
 		String titleBook = Validator.getStringLine(scnr, "Enter the book title: ");
-		String authorBook = Validator.getStringLine(scnr, "Enter book aurthor");
+		String authorBook = Validator.getStringLine(scnr, "Enter book aurthor: ");
 		String bookStatus = "Checked in";
-		int dueDate = 0;
 		int bookID = 0;
 
 		for (Books book : arr) {
@@ -193,8 +203,6 @@ public class LibraryFile {
 
 	}
 
-	
-
 	public ArrayList<Books> setToCheckedIn(ArrayList<Books> arr, Scanner scnr) {
 		int userIDValue = Validator.getInt(scnr, "Please enter the Book ID of the book you wish to return!: ", 1,
 				Integer.MAX_VALUE);
@@ -202,25 +210,25 @@ public class LibraryFile {
 		for (Books book : arr) {
 
 			if (book.getBookID() == userIDValue) {
-				book.setBookStatus("Checked in");
+				book.setBookStatus("On Shelf");
 				bookFound = true;
 				Date currentDate = Calendar.getInstance().getTime();
-				
+
 				book.setDueDate(currentDate);
-			} 
+			}
 		}
-		
+
 		if (bookFound == false) {
 			System.out.println("Book ID you have entered doesn't match our database, please try again: ");
 		}
-		
+
 		return arr;
 
 	}
 
 	// finish this
 	public void copyToFile(ArrayList<Books> arr) {
-		
+
 		Path writeFile = Paths.get("LibraryList");
 		File file = writeFile.toFile();
 
