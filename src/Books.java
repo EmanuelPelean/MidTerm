@@ -69,7 +69,7 @@ public class Books {
 	}
 	
 	public String toFileString() {
-		return (bookID + "," + author + "," + title + "," + bookStatus + "," + dueDate);
+		return (bookID + "/" + author + "/" + title + "/" + bookStatus + "/" + dueDate);
 	}
 
 }

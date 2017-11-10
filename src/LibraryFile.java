@@ -48,7 +48,7 @@ public class LibraryFile {
 			while (line != null) {
 
 				// Split each line at the ","
-				lineInput = line.split(",");
+				lineInput = line.split("/");
 
 				// Create new Book object and give it the parameters from the temp array, then
 				// add this object to the Books array
