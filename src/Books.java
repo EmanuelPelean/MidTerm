@@ -64,5 +64,9 @@ public class Books {
 		
 		
 	}
+	
+	public String toFileString() {
+		return (bookID + "," + author + "," + title + "," + bookStatus + "," + dueDate);
+	}
 
 }

@@ -25,7 +25,8 @@ public class LibraryApp {
 				lib1.bookList(booksArray);
 				break;
 			case 2:
-				Books bookReturnedByAuthor = lib1.searchByAuthor(booksArray, "Emanuel", scan);
+				String userInputAuthor = Validator.getStringLine(scan, "Please enter author name");
+				Books bookReturnedByAuthor = lib1.searchByAuthor(booksArray, userInputAuthor, scan);
 				if (bookReturnedByAuthor != null) {
 					String yn = Validator.getStringYN(scan, "Do you want to checkout this book");
 					if (yn.equalsIgnoreCase("y")) {
@@ -35,7 +36,8 @@ public class LibraryApp {
 				}
 				break;
 			case 3:
-				Books bookReturnedByTitle = lib1.searchByTitle(booksArray, "driver", scan);
+				String userInputTitle = Validator.getStringLine(scan, "Please enter the book title");
+				Books bookReturnedByTitle = lib1.searchByTitle(booksArray, userInputTitle, scan);
 				if (bookReturnedByTitle != null) {
 					String yn = Validator.getStringYN(scan, "Do you want to checkout this book");
 					if (yn.equalsIgnoreCase("y")) {
@@ -43,6 +45,7 @@ public class LibraryApp {
 						System.out.println(bookReturnedByTitle.getBookStatus());
 					}
 				}
+				break;
 			case 4:
 				lib1.bookList(booksArray);
 				//booksArray = lib1.checkInBook(booksArray, scan);
@@ -53,6 +56,7 @@ public class LibraryApp {
 				break;
 
 			case 6: 
+				lib1.copyToFile(booksArray);
 				proceed = false;
 				System.out.println("We hope you enjoyed your book!");
 				

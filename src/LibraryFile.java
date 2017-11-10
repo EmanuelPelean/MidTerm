@@ -44,7 +44,7 @@ public class LibraryFile {
 			while (line != null) {
 
 				// Split each line at the ","
-				lineInput = line.split("[.,]\\s*");
+				lineInput = line.split(",");
 
 				// Create new Book object and give it the parameters from the temp array, then
 				// add this object to the Books array
@@ -76,7 +76,7 @@ public class LibraryFile {
 		// for each book in the array, check if the book's author equals the author from
 		// the user input
 		for (Books book : arr) {
-			if (book.getAuthor().equals(author)) {
+			if (book.getAuthor().equalsIgnoreCase(author)) {
 				booksFoundArr.add(book); // if there match, add this book to a temporary array that will be used to
 											// display these results
 			}
@@ -117,7 +117,7 @@ public class LibraryFile {
 		// for each book in the array, check if the book's author equals the author from
 		// the user input
 		for (Books book : arr) {
-			if (book.getTitle().equals(title)) {
+			if (book.getTitle().equalsIgnoreCase(title)) {
 				booksFoundArr.add(book); // if there match, add this book to a temporary array that will be used to
 											// display these results
 			}
@@ -207,42 +207,35 @@ public class LibraryFile {
 	public ArrayList<Books> setToCheckedIn(ArrayList<Books> arr, Scanner scnr) {
 		int userIDValue = Validator.getInt(scnr, "Please enter the Book ID of the book you wish to return!: ", 1,
 				Integer.MAX_VALUE);
-		int bookID = 0;
-		
-		
+		boolean bookFound = false;
+		for (Books book : arr) {
 
-		
-			for (Books book : arr) {
-				bookID = book.getBookID();
-
-				if (bookID == userIDValue) {
-					book.setBookStatus("Checked in");
-					
-				}
-				else  {
-					System.out.println("Book ID you have entered doesn't match our database, please try again: ");
-				
-
-			}
-		
-		
+			if (book.getBookID() == userIDValue) {
+				book.setBookStatus("Checked in");
+				bookFound = true;
+			} 
 		}
+		
+		if (bookFound == false) {
+			System.out.println("Book ID you have entered doesn't match our database, please try again: ");
+		}
+		
 		return arr;
 
 	}
 
 	// finish this
-	public void copyToFile(String bookTitle, String bookAuthor) {
-		Books b1 = new Books();
-		b1.setTitle(bookTitle);
-		b1.setAuthor(bookAuthor);
+	public void copyToFile(ArrayList<Books> arr) {
+		
 		Path writeFile = Paths.get("LibraryList");
 		File file = writeFile.toFile();
 
 		try {
-			PrintWriter out = new PrintWriter(new FileOutputStream(file, true));
-			System.out.println("Adding to document");
-			out.println(b1);
+			PrintWriter out = new PrintWriter(new FileOutputStream(file, false));
+			for (Books book : arr) {
+				out.println(book.toFileString());
+			}
+			System.out.println("Database updated");
 			out.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("File was not found");
