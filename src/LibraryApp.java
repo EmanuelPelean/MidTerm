@@ -22,7 +22,7 @@ public class LibraryApp {
 					"\nPlease select from the following options (enter an number):\n "
 							+ "\n1. Display the entire list of books: " + "\n2. Search for a book by author: "
 							+ "\n3. Search for a book by title: " + "\n4. Return a book: "
-							+ "\n5. Add a book to database:  " + "\n6. Exit. \n\n",1, 6);
+							+ "\n5. Add a book to database:  " + "\n6. Exit.1 \n\n",1, 6);
 
 			switch (userSelection) {
 			case 1:
