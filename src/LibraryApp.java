@@ -17,7 +17,7 @@ public class LibraryApp {
 			int userSelection = Validator.getInt(scan,
 					"Please select from the following options (enter an number):\n "
 							+ "\n1. Display the entire list of books.\n " + "\n2. Search for a book by author.\n"
-							+ "\n3. Search for a book by title.\n " + "\n4. Retun a book: \n"
+							+ "\n3. Search for a book by title.\n " + "\n4. Return a book: \n"
 							+ "\n5. Add a book to database:\n " + "\n6. Exit \n\n",1, 6);
 
 			switch (userSelection) {
