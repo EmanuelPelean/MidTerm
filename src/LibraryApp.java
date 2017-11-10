@@ -13,13 +13,12 @@ public class LibraryApp {
 		System.out.println("Welcome to the Grand Circus Library Terminal\n");
 
 		while (proceed) {
-			System.out.println("\n\n");
+			System.out.println("\n");
 			int userSelection = Validator.getInt(scan,
-					"Please select from the following options: (Please enter an option number)"
-							+ "\n1. Display the entire list of books.  " + "\n2. Search for a book by author."
-							+ "\n3. Search for a book by title." + "\n4. Retun a book."
-							+ "\n5. Add a book to database: \n",
-					1, 6);
+					"Please select from the following options (enter an number):\n "
+							+ "\n1. Display the entire list of books.\n " + "\n2. Search for a book by author.\n"
+							+ "\n3. Search for a book by title.\n " + "\n4. Retun a book: \n"
+							+ "\n5. Add a book to database:\n " + "\n6. Exit \n\n",1, 6);
 
 			switch (userSelection) {
 			case 1:
