@@ -119,7 +119,7 @@ public class Validator {
 		System.out.print(prompt);
 		String s = sc.nextLine();
 
-		return s.toLowerCase();
+		return s;
 
 	}
 }

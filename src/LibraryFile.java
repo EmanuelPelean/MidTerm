@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,9 +16,9 @@ public class LibraryFile {
 
 	// Get the main array of Books and print out each line
 	public void bookList(ArrayList<Books> arr) {
-		System.out.printf("\n\n\n%-8s %-25s %-40s %-20s %-15s\n", "Book #", "Author", "Title", "Status",
-				"Due Date\n\n");
-
+		System.out.printf("\n%-8s %-25s %-40s %-11s %-15s\n", "Book#", "Author", "Title", "Status",
+				"Due Date");
+		System.out.println("_____________________________________________________________________________________________________________________________\n");
 		for (Books book : arr) {
 
 			System.out.println(book);
@@ -202,9 +201,10 @@ public class LibraryFile {
 		return arr;
 
 	}
-
+	
+	
 	public ArrayList<Books> setToCheckedIn(ArrayList<Books> arr, Scanner scnr) {
-		int userIDValue = Validator.getInt(scnr, "Please enter the Book ID of the book you wish to return!: ", 1,
+		int userIDValue = Validator.getInt(scnr, "Please enter the Book ID of the book you wish to return: ", 1,
 				Integer.MAX_VALUE);
 		boolean bookFound = false;
 		for (Books book : arr) {
