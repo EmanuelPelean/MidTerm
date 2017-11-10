@@ -14,7 +14,7 @@ public class LibraryFile {
 
 	// Get the main array of Books and print out each line
 	public void bookList(ArrayList<Books> arr) {
-		System.out.printf("%-8s %-25s %-40s %-20s %-15s\n", "Book #", "Author", "Title", "Status", "Due Date\n");
+		System.out.printf("\n\n\n%-8s %-25s %-40s %-20s %-15s\n", "Book #", "Author", "Title", "Status", "Due Date\n\n");
 
 		for (Books book : arr) {
 
@@ -205,19 +205,28 @@ public class LibraryFile {
 	}
 
 	public ArrayList<Books> setToCheckedIn(ArrayList<Books> arr, Scanner scnr) {
-
-		int userIDValue = Validator.getInt(scnr, "Please enter the Book ID of the book you wish to return: ", 1,
+		int userIDValue = Validator.getInt(scnr, "Please enter the Book ID of the book you wish to return!: ", 1,
 				Integer.MAX_VALUE);
+		int bookID = 0;
+		
+		
 
-		for (Books book : arr) {
-			int bookID = book.getBookID();
+		
+			for (Books book : arr) {
+				bookID = book.getBookID();
 
-			if (bookID == userIDValue) {
-				book.setBookStatus("Checked in");
+				if (bookID == userIDValue) {
+					book.setBookStatus("Checked in");
+					
+				}
+				else  {
+					System.out.println("Book ID you have entered doesn't match our database, please try again: ");
+				
+
 			}
-
+		
+		
 		}
-
 		return arr;
 
 	}
