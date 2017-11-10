@@ -5,6 +5,8 @@ public class LibraryApp {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
+		TextToSpeechConvertor ttsc = new TextToSpeechConvertor();
+
 		LibraryFile lib1 = new LibraryFile();
 		boolean proceed = true;
 
@@ -17,12 +19,13 @@ public class LibraryApp {
 				"/ /_/ / /  / /_/ / / / / /_/ /  / /___/ / /  / /__/ /_/ (__  )  / /___/ / /_/ / /  / /_/ / /  / /_/ /     \r\n" + 
 				"\\____/_/   \\__,_/_/ /_/\\__,_/   \\____/_/_/   \\___/\\__,_/____/  /_____/_/_.___/_/   \\__,_/_/   \\__, /      \r\n" + 
 				"                                                                                             /____/       ");
+		ttsc.speak("On behalf of the V I P team, Serhiy, DeAnte, and Emanuel. Welcome to the Grand circus Library Terminal!");
 		while (proceed) {
 			int userSelection = Validator.getInt(scan,
 					"\nPlease select from the following options (enter an number):\n "
 							+ "\n1. Display the entire list of books: " + "\n2. Search for a book by author: "
 							+ "\n3. Search for a book by title: " + "\n4. Return a book: "
-							+ "\n5. Add a book to database:  " + "\n6. Exit.1 \n\n",1, 6);
+							+ "\n5. Add a book to database:  " + "\n6. Exit. \n\n",1, 6);
 
 			switch (userSelection) {
 			case 1:
@@ -62,7 +65,7 @@ public class LibraryApp {
 			case 6: 
 				lib1.copyToFile(booksArray);
 				proceed = false;
-				System.out.println("We hope you enjoyed your book!");
+				ttsc.speak("We hope you enjoyed using our terminal, please come back soon!");
 				
 			default:
 				
