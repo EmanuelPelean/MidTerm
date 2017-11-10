@@ -1,21 +1,24 @@
+import java.util.Calendar;
+import java.util.Date;
 
 public class Books {
 	private int bookID;
 	private String title;
 	private String author;
 	private String bookStatus;
-	private int dueDate;
+	private Date dueDate;
 	
 	public Books() {
 		
 	}
-	public Books(int bookID, String author, String title, String bookStatus, int dueDate) {
+	public Books(int bookID, String author, String title, String bookStatus) {
 		// TODO Auto-generated constructor stub
 		this.bookID = bookID;
 		this.author = author;
 		this.title = title;
-		this.bookStatus = bookStatus;
-		this.dueDate = dueDate;
+		this.bookStatus = "Checked In";
+		Date currentDate = Calendar.getInstance().getTime();
+		this.dueDate = currentDate;
 	}
 
 	public String getTitle() {
@@ -34,12 +37,12 @@ public class Books {
 		this.author = author;
 	}
 	
-	public int getDueDate() {
+	public Date getDueDate() {
 		return dueDate;
 	}
 	
-	public void setDueDate(int dueDate) {
-		this.dueDate = dueDate;
+	public void setDueDate(Date date) {
+		this.dueDate = date;
 	}
 	
 	public int getBookID() {
